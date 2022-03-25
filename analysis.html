@@ -20,48 +20,51 @@
           <img src="images/logo.png">
         </div>
       </center>
-      <form class="needs-validation p-5" novalidate>
+      <form class="needs-validation p-5" id="result-form" novalidate>
         <div class="form-row">
             <div class="col-md-3 mb-3">
-                <label>Department</label>
-                <select class="form-select form-control" name="department" required>
-                  <option disabled selected>Select Department</option>
-                  <option value="Computer Science & Engineering">Computer Science & Engineering</option>
-                  <option value="Mechanical Engineering">Mechanical Engineering</option>
-                  <option value="Civil Engineering">Civil Engineering</option>
-                  <option value="Electronics & Communication Engineering">Electronics & Communication Engineering</option>
-                  <option value="Electrical & Electronics Engineering">Electrical & Electronics Engineering</option>
+                <label>Batch</label>
+                <select id="selector-batch" class="form-select form-control" name="year" required>
+                  <option disabled selected>Select Batch</option>
+                  <option data-batch="old" value="2015-2019">2015-2019</option>
+                  <option data-batch="old" value="2016-2020">2016-2020</option>
+                  <option data-batch="old" value="2017-2021">2017-2021</option>
+                  <option data-batch="new" value="2018-2022">2018-2022</option>
+                  <option data-batch="new" value="2019-2023">2019-2023</option>
+                  <option data-batch="new" value="2020-2024">2020-2024</option>
+                  <option data-batch="new" value="2021-2025">2021-2025</option>
+                  <option data-batch="new" value="2022-2026">2022-2026</option>
+                  <option data-batch="new" value="2023-2027">2023-2027</option>
+                  <option data-batch="new" value="2024-2028">2024-2028</option>
+                  <option data-batch="new" value="2025-2029">2025-2029</option>
+                  <option data-batch="new" value="2026-2030">2026-2030</option>
                 </select>
-            </div>
+              </div>
             <div class="col-md-5 mb-3">
-              <label>Subject</label>
-              <select class="form-select form-control" name="subject" required>
-                <option disabled selected>Select subject</option>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-              </select>
+                <label for="subject">Select subject from the list (Type to search subject)</label>
+                <input class="form-control" list="subjects" name="subjectName" id="subject" onchange="resetIfInvalid(this);" required>
+                <datalist id="subjects">
+                </datalist>
             </div>
             <div class="col-md-4 mb-3">
               <label for="validationCustom02">Cutoff</label>
-              <input type="text" class="form-control" id="validationCustom02" placeholder="Enter Cutoff" name="cutoff" required>
+              <input type="text" class="form-control" id="validationCustom02" placeholder="Enter Cutoff" name="cutOff" required>
             </div>
         </div>
         <div class="form-row">
             <div class="col-md-4 mb-3">
                 <label for="validationCustom02">Token</label>
-                <input type="text" class="form-control border-info" placeholder="Enter Token" name="token" required>
+                <input type="text" class="form-control border-info" placeholder="Enter Token" name="staff_key" required>
             </div>
             <div class="col-md-4 mb-3 pl-0">
                 <br>
-                <button class="btn btn-primary btn-lg ml-4 mt-2" type="submit">Submit</button>
+                <button class="btn btn-primary btn-lg ml-4 mt-2 text-white" type="submit">Submit</button>
             </div>
         </div>
       </form>
       <hr>
       <div class="container mt-5">
-        <table class="display nowrap mb-5" style="width:100%">
+        <table class="display nowrap mb-5" style="width:100%" id="table">
             <thead>
                 <tr>
                     <th>Name</th>
@@ -80,190 +83,7 @@
                     <th>Co.10</th>-->
                 </tr>
             </thead>
-            <tbody>
-                <tr>
-                    <td>12</td>
-                    <td>12.No</td>
-                    <td>12</td>
-                    <td>12</td>
-                    <td>12.1</td>
-                    <td>12.2</td>
-                    <td>12.3</td>
-                    <td>12.4</td>
-                    <td>12.5</td>
-                    <td>12.6</td>
-                </tr>
-                <tr>
-                    <td>12</td>
-                    <td>12.No</td>
-                    <td>12</td>
-                    <td>12</td>
-                    <td>12.1</td>
-                    <td>12.2</td>
-                    <td>12.3</td>
-                    <td>12.4</td>
-                    <td>12.5</td>
-                    <td>12.6</td>
-                </tr>
-                <tr>
-                    <td>12</td>
-                    <td>12.No</td>
-                    <td>12</td>
-                    <td>12</td>
-                    <td>12.1</td>
-                    <td>12.2</td>
-                    <td>12.3</td>
-                    <td>12.4</td>
-                    <td>12.5</td>
-                    <td>12.6</td>
-                </tr>
-                <tr>
-                    <td>12</td>
-                    <td>12.No</td>
-                    <td>12</td>
-                    <td>12</td>
-                    <td>12.1</td>
-                    <td>12.2</td>
-                    <td>12.3</td>
-                    <td>12.4</td>
-                    <td>12.5</td>
-                    <td>12.6</td>
-                </tr>
-                <tr>
-                    <td>12</td>
-                    <td>12.No</td>
-                    <td>12</td>
-                    <td>12</td>
-                    <td>12.1</td>
-                    <td>12.2</td>
-                    <td>12.3</td>
-                    <td>12.4</td>
-                    <td>12.5</td>
-                    <td>12.6</td>
-                </tr>
-                <tr>
-                    <td>12</td>
-                    <td>12.No</td>
-                    <td>12</td>
-                    <td>12</td>
-                    <td>12.1</td>
-                    <td>12.2</td>
-                    <td>12.3</td>
-                    <td>12.4</td>
-                    <td>12.5</td>
-                    <td>12.6</td>
-                </tr>
-                <tr>
-                    <td>12</td>
-                    <td>12.No</td>
-                    <td>12</td>
-                    <td>12</td>
-                    <td>12.1</td>
-                    <td>12.2</td>
-                    <td>12.3</td>
-                    <td>12.4</td>
-                    <td>12.5</td>
-                    <td>12.6</td>
-                </tr>
-                <tr>
-                    <td>12</td>
-                    <td>12.No</td>
-                    <td>12</td>
-                    <td>12</td>
-                    <td>12.1</td>
-                    <td>12.2</td>
-                    <td>12.3</td>
-                    <td>12.4</td>
-                    <td>12.5</td>
-                    <td>12.6</td>
-                </tr>
-                <tr>
-                    <td>12</td>
-                    <td>12.No</td>
-                    <td>12</td>
-                    <td>12</td>
-                    <td>12.1</td>
-                    <td>12.2</td>
-                    <td>12.3</td>
-                    <td>12.4</td>
-                    <td>12.5</td>
-                    <td>12.6</td>
-                </tr>
-                <tr>
-                    <td><br></td>
-                </tr>
-                <tr>
-                    <td colspan="4"><b>Number Of Students above cutoff</b></td>
-                    <td>12.1</td>
-                    <td>12.2</td>
-                    <td>12.3</td>
-                    <td>12.4</td>
-                    <td>12.5</td>
-                    <td>12.6</td>
-                </tr>
-                <tr>
-                    <td colspan="4"><b>Percentage Of Students above cutoff</b></td>
-                    <td>12.1</td>
-                    <td>12.2</td>
-                    <td>12.3</td>
-                    <td>12.4</td>
-                    <td>12.5</td>
-                    <td>12.6</td>
-                </tr>
-                <tr>
-                    <td colspan="4"><b>CO Attainment</b></td>
-                    <td>12.1</td>
-                    <td>12.2</td>
-                    <td>12.3</td>
-                    <td>12.4</td>
-                    <td>12.5</td>
-                    <td>12.6</td>
-                </tr>
-            </tbody>
-        </table>
-        <hr><br>
-        <table class="display nowrap mb-5" style="width:100%">
-            <tbody>
-                <tr>
-                    <td colspan="4"><b>CO.1</b></td>
-                    <td>Lorem ipsum dolor sit amet.</td>
-                </tr>
-                <tr>
-                    <td colspan="4"><b>CO.2</b></td>
-                    <td>Lorem ipsum dolor sit amet.</td>
-                </tr>
-                <tr>
-                    <td colspan="4"><b>CO.3</b></td>
-                    <td>Lorem ipsum dolor sit amet.</td>
-                </tr>
-                <tr>
-                    <td colspan="4"><b>CO.4</b></td>
-                    <td>Lorem ipsum dolor sit amet.</td>
-                </tr>
-                <tr>
-                    <td colspan="4"><b>CO.5</b></td>
-                    <td>Lorem ipsum dolor sit amet.</td>
-                </tr>
-                <tr>
-                    <td colspan="4"><b>CO.6</b></td>
-                    <td>Lorem ipsum dolor sit amet.</td>
-                </tr>
-                <!--<tr>
-                    <td colspan="4"><b>CO.7</b></td>
-                    <td>Lorem ipsum dolor sit amet.</td>
-                </tr>
-                <tr>
-                    <td colspan="4"><b>CO.8</b></td>
-                    <td>Lorem ipsum dolor sit amet.</td>
-                </tr>
-                <tr>
-                    <td colspan="4"><b>CO.9</b></td>
-                    <td>Lorem ipsum dolor sit amet.</td>
-                </tr>
-                <tr>
-                    <td colspan="4"><b>CO.10</b></td>
-                    <td>Lorem ipsum dolor sit amet.</td>
-                </tr>-->
+            <tbody id="table-content">
             </tbody>
         </table>
       </div>
@@ -278,5 +98,151 @@
     <script src="http://vjs.zencdn.net/6.6.3/video.js"></script>
 
     <script src="scripts/flat-ui.js"></script>
+    <script src="http://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        $("#result-form").submit(function(e) {
+            e.preventDefault();
+            $("#table-content").html("");
+            let valid = true;
+            $('[required]').each(function() {
+              if ($(this).is(':invalid') || !$(this).val()) valid = false;
+            });
+            if (!valid)
+            {
+              //all required fields don't have values
+              Swal.fire(
+                'Failed to Submit!',
+                'Please fill all the required fields.',
+                'error'
+              );
+            }
+            else
+            {
+                var object = {};
+                var form = document.getElementById("result-form");
+                var formdata = new FormData(form);
+                formdata.forEach((value,key) => {
+                    object[key] = value;
+                });
+                var json = JSON.stringify(object);
+
+                var table = document.getElementById('table-content');
+            
+                $.ajax({
+                    type: 'POST',
+                    url: "https://mbc-project.herokuapp.com/api/view",
+                    data: json,
+                    contentType: "application/json",
+                    success: function(data) {
+                        console.log(data);
+                        var processed = [];
+                        var processed_id = [];
+                        data.getData.forEach(function(object) {
+                            var co_object={};
+                            var crnt_adm = object.adm_no;
+
+                            if(!processed.includes(crnt_adm))
+                            {
+                                processed.push(crnt_adm);
+                                data.getData.forEach(function(object) {
+                                    if(object.adm_no==crnt_adm)
+                                    {
+                                        co_object[object.outcomeId]=object.value;
+                                    }
+                                });
+
+                                var temp="";
+
+                                for (var key in co_object) {
+                                    //$("#table").find(`#${crnt_adm}${key}`).html(co_object[key]);
+                                    temp = temp + `<td id="${key}">${co_object[key]}</td>`;
+                                }
+
+                                var tr = document.createElement('tr');
+                                tr.innerHTML = '<td>' + object.name + '</td>' +
+                                '<td>' + object.adm_no + '</td>' +
+                                '<td>' + object.semester + '</td>' +
+                                '<td>' + object.year + '</td>'+ temp;
+                                table.insertBefore(tr, table.firstChild);
+                            }
+                                
+                        });
+
+                        var xtemp="";
+                        var percentage_temp="";
+                        var level_temp="";
+                        
+                        var co_objectx={};
+                        var co_object_percentage={};
+                        var co_object_level={};
+                        data.returnJson.forEach(function(object) {
+                            var crnt_id = object.courseId;
+
+                            data.returnJson.forEach(function(object) {
+                                co_objectx[object.courseId]=object.studentAboveCut;
+                                var percentage=(object.studentAboveCut/object.totalStudents)*100;
+                                co_object_percentage[object.courseId]=percentage;
+                                var level;
+                                if(percentage>70){level=3}
+                                else if(percentage>60){level=2}
+                                else if(percentage>50){level=1}
+                                else{level=0}
+                                co_object_level[object.courseId]=level;
+                            });  
+                        });
+
+                        for (var key in co_objectx)
+                        {
+                            xtemp = xtemp + `<td>${co_objectx[key]}</td>`;
+                            percentage_temp = percentage_temp + `<td>${co_object_percentage[key]}</td>`;
+                            level_temp = level_temp + `<td>${co_object_level[key]}</td>`;
+                        }
+
+                        var tr = document.createElement('tr');
+                        tr.innerHTML = '<tr><td><br></td></tr>';
+                        table.appendChild(tr);
+                        var tr = document.createElement('tr');
+                        tr.innerHTML = '<td colspan="4"><b>Number Of Students above cutoff</b></td>' + xtemp;
+                        table.appendChild(tr);
+                        var tr = document.createElement('tr');
+                        tr.innerHTML = '<td colspan="4"><b>Percentage Of Students above cutoff</b></td>' + percentage_temp;
+                        table.appendChild(tr);
+                        var tr = document.createElement('tr');
+                        tr.innerHTML = '<td colspan="4"><b>CO Attainment</b></td>' + level_temp;
+                        table.appendChild(tr);
+                    },
+                    error: function (data) {
+                        Swal.fire(
+                          'Something Went Wrong!',
+                          data.responseText,
+                          'error'
+                        );
+                        console.log(data);
+                    },
+                });
+            }
+        });
+        fetch('https://mbc-project.herokuapp.com/api/list')
+        .then(response => response.json())
+        .then(data => {
+            data.subjects.map((data) => {
+                document.getElementById("subjects").innerHTML += `<option value="${data}">`;
+            });
+        });
+
+        function resetIfInvalid(el){
+             //just for beeing sure that nothing is done if no value selected
+             if (el.value == "")
+                 return;
+             var options = el.list.options;
+             for (var i = 0; i< options.length; i++) {
+                 if (el.value == options[i].value)
+                     //option matches: work is done
+                     return;
+             }
+             //no match was found: reset the value
+             el.value = "";
+        }
+    </script>
   </body>
 </html>

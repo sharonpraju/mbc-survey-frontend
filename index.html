@@ -21,7 +21,7 @@
           <h5 class="mt-5">Course Exit Survey</h5>
         </div>
       </center>
-      <form class="needs-validation p-5" novalidate>
+      <form class="needs-validation p-5" id="outcome-form" novalidate>
         <div class="form-row">
           <div class="col-md-4 mb-3">
             <label for="validationCustom02">Student Name</label>
@@ -51,7 +51,7 @@
         <div class="form-row">
           <div class="col-md-4 mb-3">
             <label>Department</label>
-            <select class="form-select form-control" name="department" required>
+            <select id="selector" class="form-select form-control" name="department" required>
               <option disabled selected>Select Department</option>
               <option value="Computer Science & Engineering">Computer Science & Engineering</option>
               <option value="Mechanical Engineering">Mechanical Engineering</option>
@@ -62,35 +62,35 @@
           </div>
           <div class="col-md-4 mb-3">
             <label>Batch</label>
-            <select class="form-select form-control" name="batch" required>
+            <select id="selector-batch" class="form-select form-control" name="year" required>
               <option disabled selected>Select Batch</option>
-              <option value="2016-2020">2015-2019</option>
-              <option value="2016-2020">2016-2020</option>
-              <option value="2017-2021">2017-2021</option>
-              <option value="2018-2022">2018-2022</option>
-              <option value="2019-2023">2019-2023</option>
-              <option value="2016-2020">2020-2024</option>
-              <option value="2016-2020">2021-2025</option>
-              <option value="2017-2021">2022-2026</option>
-              <option value="2018-2022">2023-2027</option>
-              <option value="2019-2023">2024-2028</option>
-              <option value="2019-2023">2025-2029</option>
-              <option value="2019-2023">2026-2030</option>
+              <option data-batch="old" value="2015-2019">2015-2019</option>
+              <option data-batch="old" value="2016-2020">2016-2020</option>
+              <option data-batch="old" value="2017-2021">2017-2021</option>
+              <option data-batch="new" value="2018-2022">2018-2022</option>
+              <option data-batch="new" value="2019-2023">2019-2023</option>
+              <option data-batch="new" value="2020-2024">2020-2024</option>
+              <option data-batch="new" value="2021-2025">2021-2025</option>
+              <option data-batch="new" value="2022-2026">2022-2026</option>
+              <option data-batch="new" value="2023-2027">2023-2027</option>
+              <option data-batch="new" value="2024-2028">2024-2028</option>
+              <option data-batch="new" value="2025-2029">2025-2029</option>
+              <option data-batch="new" value="2026-2030">2026-2030</option>
             </select>
           </div>
           <div class="col-md-4 mb-3">
-            <label>Subject</label>
-            <select class="form-select form-control" name="subject" required>
+            <label for="subject">Select subject from the list (Type to search subject)</label>
+            <!-- <select id="addSubject" class="form-select form-control" name="subject" required>
               <option disabled selected>Select Subject</option>
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-            </select>
+       
+            </select> -->
+            <input class="form-control" list="subjects" name="subject" id="subject" onchange="resetIfInvalid(this);" required>
+            <datalist id="subjects">
+            </datalist>
           </div>
           <div class="col-md-4 mb-3">
             <label for="validationCustom02">Token</label>
-            <input type="text" class="form-control border-info" placeholder="Enter Token" name="token" required>
+            <input type="text" class="form-control border-info" placeholder="Enter Token" name="student_key" required>
           </div>
         </div>
         <hr>
@@ -98,7 +98,7 @@
           <div class="form-row">
             <div class="col-3 mb-3">
             <label for="validationCustom05"><!--/--></label>
-            <input type="text" class="form-control border-0 text-dark mt-4" value="Course Outcome 1" name="co1" required readonly>
+            <input type="text" class="form-control border-0 text-dark mt-4" value="co.1" name="co1" required readonly>
             </div>
             <div class="col-5 mb-3">
             <label for="validationCustom05">Description</label>
@@ -133,18 +133,13 @@
     <script src="scripts/flat-ui.js"></script>
     <script src="http://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
-      Swal.fire(
-        'Success',
-        'Your data has been recorded!',
-        'success'
-      )
-      current_value=1;
+      var current_value=1;
       function addOutcome(){
         current_value++;
-        document.getElementById("co_div").innerHTML += `<div class="form-row">
+        $("#co_div").append(`<div class="form-row">
             <div class="col-3 mb-3">
             <label for="validationCustom05"><!--/--></label>
-            <input type="text" class="form-control border-0 text-dark mt-4" value="Course Outcome ${current_value}" name="co${current_value}" required readonly>
+            <input type="text" class="form-control border-0 text-dark mt-4" value="co.${current_value}" name="co${current_value}" required readonly>
             </div>
             <div class="col-5 mb-3">
             <label for="validationCustom05">Description</label>
@@ -161,8 +156,146 @@
               <option value="5">Excellent</option>
             </select>
             </div>
-          </div>`;
+          </div>`);
       }
+
+      $("#outcome-form").on("submit", function (e) {
+          e.preventDefault();
+          let valid = true;
+          $('[required]').each(function() {
+            if ($(this).is(':invalid') || !$(this).val()) valid = false;
+          });
+          if (!valid)
+          {
+            //all required fields don't have values
+            Swal.fire(
+              'Failed to Submit!',
+              'Please fill all the required fields.',
+              'error'
+            );
+          }
+          else
+          {
+            //all required feilds have values
+            var object = {};
+            var form = document.getElementById("outcome-form");
+            var formdata = new FormData(form);
+            var co_array = [];
+            var co_json={};
+            var co_flag=0;
+            formdata.forEach((value,key) => {
+              if(co_flag==0)
+              {
+                //if all course outcomes are not processed
+                if(key=="co1")
+                {
+                  //course outcome entry begins
+                  //generating Json array of course outcomes
+                  for(var i=1; i<=current_value; i++)
+                  {
+                    outcomeId=document.getElementsByName(`co${i}`)[0].value;
+                    description=document.getElementsByName(`cod${i}`)[0].value;
+                    value=document.getElementsByName(`cor${i}`)[0].value;
+                    co_json = {
+                    "outcomeId": outcomeId,
+                    "description":description,
+                    "value":value
+                    }
+                    co_array.push(co_json);
+                  }
+                  //setting flag after processing all course outcomes
+                  co_flag=1;
+                  object["outComeArray"] = co_array;
+                }
+                else
+                {
+                  object[key] = value;
+                }
+              }
+            });
+            var json = JSON.stringify(object);
+            $.ajax({
+                type: 'POST',
+                url: "https://mbc-project.herokuapp.com/api/insert",
+                data: json,
+                contentType: "application/json",
+                success: function(data) {
+                    Swal.fire(
+                      'Success',
+                      'Your data has been recorded!',
+                      'success'
+                    ).then(function() {
+                      window.location.reload();
+                    });
+                    console.log(data);
+                },
+                error: function (data) {
+                    Swal.fire(
+                      'Something Went Wrong!',
+                      data.responseText,
+                      'error'
+                    );
+                    console.log(data);
+                },
+            });
+          }
+      });
     </script>
   </body>
+<script>
+  fetch('https://mbc-project.herokuapp.com/api/list')
+    .then(response => response.json())
+    .then(data => {
+      //data.csCourseJson.old_scheme.map((data) => {
+      data.subjects.map((data) => {
+        document.getElementById("subjects").innerHTML += `  <option value="${data}">`;
+      });
+    });
+
+  function resetIfInvalid(el){
+     //just for beeing sure that nothing is done if no value selected
+     if (el.value == "")
+         return;
+     var options = el.list.options;
+     for (var i = 0; i< options.length; i++) {
+         if (el.value == options[i].value)
+             //option matches: work is done
+             return;
+     }
+     //no match was found: reset the value
+     el.value = "";
+  }
+
+  // fetch('https://mbc-project.herokuapp.com/api/list')
+  //   .then(response => response.json())
+  //   .then(data => {
+  //     dataFetch = data
+  //     let selectorDrop = (document.getElementById("selector"));
+  //     selectorDrop.addEventListener("change",(event) => {
+  //       if(event.target.value === "Computer Science & Engineering")
+  //       {
+  //         allCourse = (dataFetch.csCourseJson)
+  //       }
+  //     })
+  //     let batchSelect = document.getElementById('selector-batch');
+  //     batchSelect.addEventListener("change",(event) => {
+  //     if(Number(event.target.value.split("-")[0]) < 2019)
+  //     {
+  //       document.getElementById("addSubject").innerHTML = ""
+  //       data.csCourseJson.old_scheme.map((data) => {
+  //         document.getElementById("addSubject").innerHTML += `  <option value="${data}">${data}</option>`
+  //       })
+
+  //      // document.getElementById("addSubject")+=
+  //     }
+  //     else{
+  //       document.getElementById("addSubject").innerHTML = ""
+  //       data.csCourseJson.new_scheme.map((data) => {
+  //         document.getElementById("addSubject").innerHTML += `  <option value="${data}">${data}</option>`
+  //       })
+  //     }
+  //   }) 
+  // });
+
+</script>
 </html>
