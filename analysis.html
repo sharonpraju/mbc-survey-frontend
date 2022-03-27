@@ -47,13 +47,24 @@
                 </datalist>
             </div>
             <div class="col-md-4 mb-3">
-              <label for="validationCustom02">Cutoff</label>
+              <label>Cutoff</label>
               <input type="text" class="form-control" id="validationCustom02" placeholder="Enter Cutoff" name="cutOff" required>
             </div>
         </div>
         <div class="form-row">
             <div class="col-md-4 mb-3">
-                <label for="validationCustom02">Token</label>
+              <label>Department</label>
+              <select id="selector" class="form-select form-control" name="department" required>
+                <option disabled selected>Select Department</option>
+                <option value="Computer Science & Engineering">Computer Science & Engineering</option>
+                <option value="Mechanical Engineering">Mechanical Engineering</option>
+                <option value="Civil Engineering">Civil Engineering</option>
+                <option value="Electronics & Communication Engineering">Electronics & Communication Engineering</option>
+                <option value="Electrical & Electronics Engineering">Electrical & Electronics Engineering</option>
+              </select>
+            </div>
+            <div class="col-md-4 mb-3">
+                <label>Token</label>
                 <input type="text" class="form-control border-info" placeholder="Enter Token" name="staff_key" required>
             </div>
             <div class="col-md-4 mb-3 pl-0">
