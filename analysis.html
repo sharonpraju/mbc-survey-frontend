@@ -70,11 +70,12 @@
             <div class="col-md-4 mb-3 pl-0">
                 <br>
                 <button class="btn btn-primary btn-lg ml-4 mt-2 text-white" type="submit">Submit</button>
+                <button class="btn btn-secondary btn-lg ml-4 mt-2 text-white" onclick="printFun('content-div')" type="button">Print</button>
             </div>
         </div>
       </form>
       <hr>
-      <div class="container mt-5">
+      <div class="container mt-5" id="content-div">
         <table class="display nowrap mb-5" style="width:100%" id="table">
             <thead>
                 <tr>
@@ -217,10 +218,10 @@
                         tr.innerHTML = '<tr><td><br></td></tr>';
                         table.appendChild(tr);
                         var tr = document.createElement('tr');
-                        tr.innerHTML = '<td colspan="4"><b>Number Of Students above cutoff</b></td>' + xtemp;
+                        tr.innerHTML = '<td colspan="4"><b>Number of students above cutoff</b></td>' + xtemp;
                         table.appendChild(tr);
                         var tr = document.createElement('tr');
-                        tr.innerHTML = '<td colspan="4"><b>Percentage Of Students above cutoff</b></td>' + percentage_temp;
+                        tr.innerHTML = '<td colspan="4"><b>Percentage of students above cutoff</b></td>' + percentage_temp;
                         table.appendChild(tr);
                         var tr = document.createElement('tr');
                         tr.innerHTML = '<td colspan="4"><b>CO Attainment</b></td>' + level_temp;
@@ -268,6 +269,17 @@
              }
              //no match was found: reset the value
              el.value = "";
+        }
+
+        var cssLinkTags=`<link href="css/vendor/bootstrap.min.css" rel="stylesheet">
+        <link href="css/flat-ui.css" rel="stylesheet">`;
+
+        function printFun(id) {
+          var printContents = document.getElementById(id).innerHTML;
+          w=window.open();
+          w.document.write(printContents);
+          w.print();
+          w.close();
         }
     </script>
   </body>
