@@ -11,6 +11,14 @@
     <!-- Loading Flat UI Pro -->
     <link href="css/flat-ui.css" rel="stylesheet">
 
+    <style>
+      @media print {
+        .print-input{
+          display: none !important;
+        }
+      }
+    </style>
+
   </head>
   <body>
 
@@ -275,6 +283,7 @@
         <link href="css/flat-ui.css" rel="stylesheet">`;
 
         function printFun(id) {
+          $('.print-input').hide();
           var printContents = document.getElementById(id).innerHTML;
           w=window.open();
           w.document.write(printContents);
@@ -288,9 +297,15 @@
           current_value++;
           var outcome_table = document.getElementById('desctiption-tbl-content');
           var tr = document.createElement('tr');
-          tr.innerHTML = `<td><b>Course Description ${current_value} :</b></td>
-          <td><textarea class="form-control border-left-0 border-right-0 border-top-0 rounded-0"></textarea></td>`;
+          tr.innerHTML = `<td><b>Course Description ${current_value} :</b><span class="ml-3" id="span${current_value}"></span></td>
+          <td><input type="text" class="form-control border-left-0 border-right-0 border-top-0 rounded-0 print-input" onchange="chFun(${current_value}, this.value)"></td>`;
           outcome_table.appendChild(tr);
+        }
+
+        function chFun(id,value)
+        {
+          console.log(value)
+          document.getElementById(`span${id}`).innerHTML=value;
         }
     </script>
   </body>
