@@ -103,6 +103,8 @@
             <tbody id="desctiption-tbl-content">
             </tbody>
         </table>
+        <br><br>
+        <button class="btn btn-primary btn-lg mb-5" onclick="addOutcome()">Add Outcome</button>
       </div>
     </div>
 
@@ -127,13 +129,21 @@
             {
               //all required fields don't have values
               Swal.fire(
-                'Failed to Submit!',
-                'Please fill all the required fields.',
-                'error'
-              );
+                  'Failed to Submit!',
+                  'Please fill all the required fields.',
+                  'error'
+                );
             }
             else
             {
+                Swal.fire({
+                  title: 'Please Wait !',
+                  html: 'Processing your request',
+                  allowOutsideClick: false,
+                  icon: 'info',
+                  showConfirmButton: false
+                });
+
                 var object = {};
                 var form = document.getElementById("result-form");
                 var formdata = new FormData(form);
@@ -151,6 +161,7 @@
                     contentType: "application/json",
                     success: function(data) {
                         console.log(data);
+                        Swal.close();
                         var processed = [];
                         var processed_id = [];
                         data.getData.forEach(function(object) {
@@ -199,9 +210,9 @@
                                 var percentage=(object.studentAboveCut/object.totalStudents)*100;
                                 co_object_percentage[object.courseId]=percentage;
                                 var level;
-                                if(percentage>70){level=3}
-                                else if(percentage>60){level=2}
-                                else if(percentage>50){level=1}
+                                if(percentage>=70){level=3}
+                                else if(percentage>=60){level=2}
+                                else if(percentage>=50){level=1}
                                 else{level=0}
                                 co_object_level[object.courseId]=level;
                             });  
@@ -210,7 +221,7 @@
                         for (var key in co_objectx)
                         {
                             xtemp = xtemp + `<td>${co_objectx[key]}</td>`;
-                            percentage_temp = percentage_temp + `<td>${co_object_percentage[key]}</td>`;
+                            percentage_temp = percentage_temp + `<td>${Math.round(co_object_percentage[key])}</td>`;
                             level_temp = level_temp + `<td>${co_object_level[key]}</td>`;
                         }
 
@@ -226,17 +237,6 @@
                         var tr = document.createElement('tr');
                         tr.innerHTML = '<td colspan="4"><b>CO Attainment</b></td>' + level_temp;
                         table.appendChild(tr);
-
-                        var outcome_count=0;
-                        var outcome_table = document.getElementById('desctiption-tbl-content');
-                        data.description.map((obj)=>{
-                          outcome_count++;
-                          var tr = document.createElement('tr');
-                          tr.innerHTML = `<td colspan="4"><b>Course Outcome ${outcome_count} :</b></td>
-                          <td>${obj}</td>`;
-                          outcome_table.appendChild(tr);
-                        });
-
                     },
                     error: function (data) {
                         Swal.fire(
@@ -280,6 +280,17 @@
           w.document.write(printContents);
           w.print();
           w.close();
+        }
+
+        var current_value=0;
+
+        function addOutcome(){
+          current_value++;
+          var outcome_table = document.getElementById('desctiption-tbl-content');
+          var tr = document.createElement('tr');
+          tr.innerHTML = `<td><b>Course Description ${current_value} :</b></td>
+          <td><textarea class="form-control border-left-0 border-right-0 border-top-0 rounded-0"></textarea></td>`;
+          outcome_table.appendChild(tr);
         }
     </script>
   </body>

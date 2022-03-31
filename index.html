@@ -174,6 +174,13 @@
           }
           else
           {
+            Swal.fire({
+              title: 'Please Wait !',
+              html: 'Processing your request',
+              allowOutsideClick: false,
+              icon: 'info',
+              showConfirmButton: false
+            });
             //all required feilds have values
             var object = {};
             var form = document.getElementById("outcome-form");
@@ -218,6 +225,7 @@
                 data: json,
                 contentType: "application/json",
                 success: function(data) {
+                    Swal.close();
                     Swal.fire(
                       'Success',
                       'Your data has been recorded!',
